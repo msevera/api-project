@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  selector:
+    matchLabels:
+      component: api
+  template:
+    metadata:
+      labels:
+        component: api
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: api
+          image: project/ptapi
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            failureThreshold: 30
+            periodSeconds: 10
+          ports:
+            - containerPort: 5000
+          env:
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: api-redis-host
+                  key: API_REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: api-redis-port
+                  key: API_REDIS_PORT
+            - name: REDIS_DB
+              valueFrom:
+                secretKeyRef:
+                  name: api-redis-db
+                  key: API_REDIS_DB
+            - name: TZ
+              valueFrom:
+                secretKeyRef:
+                  name: api-tz
+                  key: API_TZ
+            - name: DB
+              valueFrom:
+                secretKeyRef:
+                  name: api-db
+                  key: API_DB
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: api-jwt-secret
+                  key: API_JWT_SECRET

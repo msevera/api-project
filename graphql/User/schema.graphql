@@ -1,0 +1,51 @@
+enum Role {
+  Guest
+  Consumer
+  Admin
+}
+
+type User {
+  id: ID
+  slug: String
+  name: String
+  bio: String
+  email: String
+  role: Role!
+  createdAt: DateTime
+  updatedAt: DateTime
+  blocked: Boolean
+}
+
+type Auth {
+  user: User
+  token: String!
+  refreshToken: String
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+input UserInput {
+  name: String
+  bio: String
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+}
+
+type Query {
+  getMe: User
+  getUserById(id: ID!): User
+  getUserBySlug(slug: String!): User
+}
+
+type Mutation {
+  signIn(email: String!, password: String!): Auth
+  signUp(name: String!, email: String!, password: String!, rePassword: String!): Auth
+  blockUser(userId: ID!, blocked: Boolean!): User @auth(role: Admin)
+  editUserProfileById(id: ID!, data: UserInput!): User @auth(role: Consumer)
+}

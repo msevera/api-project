@@ -1,0 +1,51 @@
+{
+  "name": "api-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint .",
+    "dev": "nodemon --inspect=9229 --trace-warnings index.js",
+    "prettier": "prettier --write .",
+    "test": "jest --runInBand",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.10.0",
+    "@graphql-tools/schema": "^8.5.0",
+    "@graphql-tools/utils": "^8.8.0",
+    "apollo-datasource": "^3.3.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dataloader": "^2.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.1",
+    "graphql": "^16.8.1",
+    "helmet": "^5.1.0",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^8.0.1",
+    "mongoose-slug-updater": "^3.3.0",
+    "nodemon": "^3.1.7",
+    "redis": "^4.5.1",
+    "schemaglue": "^4.3.0",
+    "winston": "^3.15.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.1.6",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^7.0.4",
+    "jest": "^27.1.6",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.1"
+  }
+}

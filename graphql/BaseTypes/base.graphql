@@ -1,0 +1,34 @@
+directive @auth(role: Role) on FIELD_DEFINITION
+
+scalar DateTime
+
+type DeleteType {
+  success: Boolean!
+  id: ID!
+}
+
+type PageInfo {
+  previous: String
+  next: String
+  hasPrevious: Boolean
+  hasNext: Boolean
+  total: Int
+}
+
+input SortInfo {
+  by: String!
+  order: String!
+}
+
+input Pagination {
+  cursorNext: String
+  cursorPrevious: String
+  limit: Int
+  sort: SortInfo
+}
+
+type SignedUrl {
+  contentType: String!
+  fileName: String!
+  url: String!
+}

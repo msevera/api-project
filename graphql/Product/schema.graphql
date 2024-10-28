@@ -1,0 +1,37 @@
+type Product {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String!
+  owner: User!
+}
+
+type ProductsCursor {
+  items: [Product]!
+  pageInfo: PageInfo
+}
+
+input GetProductsListInput {
+  ownerId: ID
+}
+
+input ProductInput {
+  name: String!
+  description: String!
+}
+
+input ProductEditInput {
+  name: String
+  description: String
+}
+
+type Query {
+  getProductById(id: ID!): Product
+  getProductsList(input: GetProductsListInput!, pagination: Pagination): ProductsCursor
+  getProductBySlug(slug: String!): Product
+}
+
+type Mutation {
+  createProduct(data: ProductInput!): Product @auth(role: Consumer)
+  editProductById(id: ID!, data: ProductEditInput!): Product @auth(role: Consumer)
+}

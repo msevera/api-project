@@ -1,0 +1,36 @@
+apiVersion: skaffold/v4beta7
+kind: Config
+manifests:
+  rawYaml:
+    - k8s/pt/development/development-ingress-service.yml
+    - k8s/api-cluster-ip-service.yml
+    - k8s/api-deployment.yml
+build:
+  local:
+    push: false
+  artifacts:
+    - image: project/ptapi
+      runtimeType: nodejs
+      context: .
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
+deploy:
+  kubectl:
+    defaultNamespace: pt
+    hooks:
+      before:
+        - host:
+            command: ['sh', './k8s/pt/development/pre-deploy.sh', 'pt']
+      after:
+        - host:
+            command: ['sh', './k8s/pt/development/post-deploy.sh', 'pt']
+portForward:
+  - resourceType: deployment
+    resourceName: api-deployment
+    namespace: pt
+    port: 9229
+    localPort: 9245

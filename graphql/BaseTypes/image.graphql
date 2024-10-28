@@ -1,0 +1,11 @@
+type Image {
+  url: String!
+  external: Boolean
+}
+
+type Media {
+  url: String
+  name: String
+  type: String
+  size: Int
+}

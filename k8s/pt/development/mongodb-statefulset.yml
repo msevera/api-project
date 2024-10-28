@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-statefulset
+spec:
+  selector:
+    matchLabels:
+      component: mongo
+  serviceName: mongo-headless
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          command:
+            - mongod
+            - '--replSet'
+            - rs0
+            - '--bind_ip'
+            - 0.0.0.0
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-storage
+      spec:
+        storageClassName: 'hostpath'
+        accessModes: ['ReadWriteOnce']
+        resources:
+          requests:
+            storage: 10Gi
