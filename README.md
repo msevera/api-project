@@ -1,4 +1,13 @@
-# Follow these steps to run locally
+For the past couple of years, I've built dozens of MVPs and prototypes, and our team needed an API with a monolithic architecture that could be easily modified at its core and scaled as needed. This API was developed and improved incrementally. This repository contains the core code and demonstrates, using two example entities, *User* and *Product*, how to use and build on top of it.
+
+The architecture consists of multiple layers:
+- **GraphQL Resolver**
+- **Domain Layer** with Cross-Domain Transactions
+- **Datasource Layer**
+- **Security Layer** with Token Management
+- **Services Layer**
+
+The system is configured for deployment on a local Kubernetes cluster and uses Redis and MongoDB deployments.
 
 ## Kubernetes setup
 
